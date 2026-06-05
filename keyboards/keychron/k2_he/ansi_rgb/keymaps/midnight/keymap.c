@@ -63,72 +63,143 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 // clang-format on
 
-// Midnight palette — matched to a deep-blue multi-monitor desktop
-// wallpaper: dark navy with a vivid blue abstract wave, room bathed
-// in blue LED ambient light.
+// Midnight + Vim palette
 //
-// Violet anchor:  #AA00FF  -> rgb(170,   0, 255)  Esc — draws the eye
-// Deep purple:    #6E14C8  -> rgb(110,  20, 200)  Function row
-// Vivid cyan:     #00C8FF  -> rgb(  0, 200, 255)  Number row, Enter, arrows
-// Electric blue:  #0060FF  -> rgb(  0,  96, 255)  Alpha keys
-// Ice blue:       #5090FF  -> rgb( 80, 144, 255)  Modifiers / shifts
-// Midnight blue:  #00329A  -> rgb(  0,  50, 154)  Space bar
-// Navy void:      #03081C  -> rgb(  3,   8,  28)  Base / off keys
+// Color groups by Vim role — base midnight blue aesthetic preserved:
+//
+//  near-white  rgb(220, 235, 255)  ESC        — exit any mode (most critical)
+//  deep purple rgb( 90,  15, 170)  Fn row     — media / RGB controls
+//  vivid cyan  rgb(  0, 220, 255)  Motions    — HJKL, WEB, GNF/T (where to go)
+//  amber       rgb(255, 155,   0)  Operators  — DCYRX + . (what to do)
+//  green       rgb(  0, 200,  80)  Insert     — IAO (enter insert mode)
+//  violet      rgb(160,   0, 255)  Visual     — V
+//  red-orange  rgb(255,  70,  30)  Undo       — U
+//  yellow      rgb(255, 215,   0)  Search     — /
+//  lime        rgb( 80, 220,  80)  Paste      — P
+//  ice-white   rgb(180, 220, 255)  Command    — ; (Shift+; = :)
+//  cyan        rgb(  0, 200, 255)  Counts     — number row + Enter + arrows
+//  dim amber   rgb(100,  40,   0)  CapsLock   — "remap me to Esc or Ctrl"
+//  ice blue    rgb( 80, 144, 255)  Modifiers  — Shift / Ctrl / Cmd / Fn
+//  midnight    rgb(  0,  50, 154)  Space
+//  electric bl rgb(  0,  75, 210)  Other alpha — unlisted keys
+//  navy void   rgb(  3,   8,  28)  Background — non-alpha
 
 bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     for (uint8_t i = led_min; i < led_max; i++) {
         switch (i) {
-            // Esc: violet anchor
+            // ESC: near-white — exit any Vim mode
             case 0:
-                rgb_matrix_set_color(i, 170, 0, 255);
+                rgb_matrix_set_color(i, 220, 235, 255);
                 break;
+
             // Function row (F1–F12, Del, RGB_MOD): deep purple
             case 1: case 2: case 3: case 4: case 5: case 6: case 7:
             case 8: case 9: case 10: case 11: case 12: case 13: case 14: case 15:
-                rgb_matrix_set_color(i, 110, 20, 200);
+                rgb_matrix_set_color(i, 90, 15, 170);
                 break;
-            // Number row (` 1–0 - = Bspc): vivid cyan
+
+            // Number row (` 1–0 - = Bspc): cyan — count multipliers (5j, 10dd…)
             case 16: case 17: case 18: case 19: case 20:
             case 21: case 22: case 23: case 24: case 25:
             case 26: case 27: case 28: case 29:
                 rgb_matrix_set_color(i, 0, 200, 255);
                 break;
-            // Alpha keys — Q row (Q–P [ ] \)
-            case 31: case 32: case 33: case 34: case 35: case 36:
-            case 37: case 38: case 39: case 40: case 41: case 42:
-                rgb_matrix_set_color(i, 0, 96, 255);
+
+            // Motion keys: vivid cyan — HJKL + word motions + goto/find/next
+            case 52: // H — left
+            case 53: // J — down
+            case 54: // K — up
+            case 55: // L — right
+            case 33: // W — word forward
+            case 34: // E — word end
+            case 64: // B — word back
+            case 51: // G — goto (gg / G / 5G)
+            case 65: // N — next search match
+            case 50: // F — find char (fa, fb…)
+            case 36: // T — till char (ta, tb…)
+                rgb_matrix_set_color(i, 0, 220, 255);
                 break;
-            // Alpha keys — A row (A–L ; ')
-            case 46: case 47: case 48: case 49: case 50: case 51:
-            case 52: case 53: case 54: case 55: case 56: case 57:
-                rgb_matrix_set_color(i, 0, 96, 255);
+
+            // Operators: amber — delete / change / yank / delete-char / replace / repeat
+            case 49: // D — delete
+            case 62: // C — change
+            case 37: // Y — yank
+            case 61: // X — delete char under cursor
+            case 35: // R — replace char
+            case 68: // . — repeat last change (most powerful Vim key)
+                rgb_matrix_set_color(i, 255, 155, 0);
                 break;
-            // Alpha keys — Z row (Z–/)
-            case 60: case 61: case 62: case 63: case 64:
-            case 65: case 66: case 67: case 68: case 69:
-                rgb_matrix_set_color(i, 0, 96, 255);
+
+            // Insert-mode entry: green — I / A / O
+            case 39: // I — insert before cursor
+            case 47: // A — append after cursor
+            case 40: // O — open new line below
+                rgb_matrix_set_color(i, 0, 200, 80);
                 break;
-            // Enter: vivid cyan
+
+            // Visual mode: violet — V
+            case 63:
+                rgb_matrix_set_color(i, 160, 0, 255);
+                break;
+
+            // Undo: red-orange — U
+            case 38:
+                rgb_matrix_set_color(i, 255, 70, 30);
+                break;
+
+            // Search: yellow — /
+            case 69:
+                rgb_matrix_set_color(i, 255, 215, 0);
+                break;
+
+            // Paste: lime — P
+            case 41:
+                rgb_matrix_set_color(i, 80, 220, 80);
+                break;
+
+            // Command mode: bright ice — ; (Shift+; = :)
+            case 56:
+                rgb_matrix_set_color(i, 180, 220, 255);
+                break;
+
+            // CapsLock: dim amber — "remap me to Esc or Ctrl"
+            case 46:
+                rgb_matrix_set_color(i, 100, 40, 0);
+                break;
+
+            // Enter: cyan — confirm Ex commands / jump
             case 58:
-                rgb_matrix_set_color(i, 0, 200, 255);
+                rgb_matrix_set_color(i, 0, 210, 255);
                 break;
+
             // Shift keys: ice blue
             case 59: case 73:
                 rgb_matrix_set_color(i, 80, 144, 255);
                 break;
+
             // Bottom-row modifiers (Ctrl, Opt/Alt, Cmd/Win, Fn): ice blue
             case 74: case 75: case 76: case 77: case 78:
                 rgb_matrix_set_color(i, 80, 144, 255);
                 break;
-            // Space bar: midnight blue
+
+            // Space: midnight blue
             case 72:
                 rgb_matrix_set_color(i, 0, 50, 154);
                 break;
-            // Arrow cluster + PgUp/PgDn/Home/End: vivid cyan
+
+            // Side cluster + arrows (PgUp/PgDn/Home/End/arrows): cyan
             case 30: case 44: case 45: case 70: case 71:
             case 79: case 80: case 81: case 82: case 83:
                 rgb_matrix_set_color(i, 0, 200, 255);
                 break;
+
+            // Remaining alphas: electric blue
+            // TAB(31) Q(32) S(48) Z(60) M(66) ,(67) [(42) ](43) \(44) '(57)
+            case 31: case 32: case 48: case 60:
+            case 66: case 67: case 42: case 43: case 57:
+                rgb_matrix_set_color(i, 0, 75, 210);
+                break;
+
             // Everything else: navy void
             default:
                 rgb_matrix_set_color(i, 3, 8, 28);
