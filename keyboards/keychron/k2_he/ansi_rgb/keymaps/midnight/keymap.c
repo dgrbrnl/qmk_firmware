@@ -112,9 +112,9 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
             case 55: // L — right
             case 33: // W — word forward
             case 34: // E — word end
-            case 64: // B — word back
+            case 65: // B — word back
             case 51: // G — goto (gg / G / 5G)
-            case 65: // N — next search match
+            case 66: // N — next search match
             case 50: // F — find char (fa, fb…)
             case 36: // T — till char (ta, tb…)
                 rgb_matrix_set_color(i, 0, 220, 255);
@@ -122,11 +122,11 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
 
             // Operators: amber — delete / change / yank / delete-char / replace / repeat
             case 49: // D — delete
-            case 62: // C — change
+            case 63: // C — change
             case 37: // Y — yank
-            case 61: // X — delete char under cursor
+            case 62: // X — delete char under cursor
             case 35: // R — replace char
-            case 68: // . — repeat last change (most powerful Vim key)
+            case 69: // . — repeat last change (most powerful Vim key)
                 rgb_matrix_set_color(i, 255, 155, 0);
                 break;
 
@@ -138,7 +138,7 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
                 break;
 
             // Visual mode: violet — V
-            case 63:
+            case 64:
                 rgb_matrix_set_color(i, 160, 0, 255);
                 break;
 
@@ -148,7 +148,7 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
                 break;
 
             // Search: yellow — /
-            case 69:
+            case 70:
                 rgb_matrix_set_color(i, 255, 215, 0);
                 break;
 
@@ -173,30 +173,30 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
                 break;
 
             // Shift keys: ice blue
-            case 59: case 73:
+            case 60: case 71:
                 rgb_matrix_set_color(i, 80, 144, 255);
                 break;
 
             // Bottom-row modifiers (Ctrl, Opt/Alt, Cmd/Win, Fn): ice blue
-            case 74: case 75: case 76: case 77: case 78:
+            case 74: case 75: case 76: case 78: case 79: case 80:
                 rgb_matrix_set_color(i, 80, 144, 255);
                 break;
 
             // Space: midnight blue
-            case 72:
+            case 77:
                 rgb_matrix_set_color(i, 0, 50, 154);
                 break;
 
             // Side cluster + arrows (PgUp/PgDn/Home/End/arrows): cyan
-            case 30: case 44: case 45: case 70: case 71:
-            case 79: case 80: case 81: case 82: case 83:
+            case 30: case 45: case 59: case 73:
+            case 72: case 81: case 82: case 83:
                 rgb_matrix_set_color(i, 0, 200, 255);
                 break;
 
-            // Remaining alphas: electric blue
-            // TAB(31) Q(32) S(48) Z(60) M(66) ,(67) [(42) ](43) \(44) '(57)
-            case 31: case 32: case 48: case 60:
-            case 66: case 67: case 42: case 43: case 57:
+            // Remaining alphas + punctuation: electric blue
+            // TAB(31) Q(32) S(48) Z(61) M(67) ,(68) [(42) ](43) \(44) '(57)
+            case 31: case 32: case 48: case 61:
+            case 67: case 68: case 42: case 43: case 44: case 57:
                 rgb_matrix_set_color(i, 0, 75, 210);
                 break;
 

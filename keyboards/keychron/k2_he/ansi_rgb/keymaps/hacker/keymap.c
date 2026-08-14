@@ -78,34 +78,34 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
                 rgb_matrix_set_color(i, 255, 0, 0);
                 break;
             // Alpha keys (Q-P, A-L, Z-M rows): bright green
-            case 31: case 32: case 33: case 34: case 35: case 36:
-            case 37: case 38: case 39: case 40: case 41: case 42:
-            case 46: case 47: case 48: case 49: case 50: case 51:
-            case 52: case 53: case 54: case 55: case 56:
-            case 60: case 61: case 62: case 63: case 64: case 65:
-            case 66: case 67: case 68: case 69:
+            case 32: case 33: case 34: case 35: case 36: case 37:
+            case 38: case 39: case 40: case 41:
+            case 47: case 48: case 49: case 50: case 51: case 52:
+            case 53: case 54: case 55:
+            case 61: case 62: case 63: case 64: case 65: case 66:
+            case 67:
                 rgb_matrix_set_color(i, 0, 255, 65);
                 break;
-            // Number row: mid green
+            // Number row (` 1-0 - =): mid green
             case 16: case 17: case 18: case 19: case 20: case 21:
             case 22: case 23: case 24: case 25: case 26: case 27:
-            case 28: case 29:
+            case 28:
                 rgb_matrix_set_color(i, 0, 204, 51);
                 break;
-            // Enter, Backspace: amber
-            case 44: case 58:
+            // Backspace, Enter: amber
+            case 29: case 58:
                 rgb_matrix_set_color(i, 255, 176, 0);
                 break;
             // Shift keys: amber
-            case 59: case 73:
+            case 60: case 71:
                 rgb_matrix_set_color(i, 255, 176, 0);
                 break;
             // Arrow keys: bright green
-            case 79: case 80: case 81: case 82: case 83:
+            case 72: case 81: case 82: case 83:
                 rgb_matrix_set_color(i, 0, 255, 65);
                 break;
             // Space: dim green
-            case 74:
+            case 77:
                 rgb_matrix_set_color(i, 0, 100, 20);
                 break;
             // Everything else: near-black dim green
